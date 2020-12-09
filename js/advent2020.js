@@ -1,7 +1,6 @@
 $(document).ready(function(){
  "use strict";
-
- const puzzle = $('#puzzle')
+const puzzle = $('#puzzle')
 
  let puzzleString = puzzle.html()
 
@@ -9,98 +8,152 @@ $(document).ready(function(){
 
  const puzzleArr = puzzleString.split('\n    ')
 
- // console.log(puzzleArr);
+ console.log(puzzleArr);
 
- let newArr = []
- puzzleArr.forEach(function(puzzle){
-  let tinyArr = puzzle.split(" ")
-  newArr.push(tinyArr)
- })
-
- // for(var i = 57; i <= 57; i++){
- //  newArr[i][0] = "nop"
- // }
- // for(var i = 525; i <= 525; i++){
- //  newArr[i][0] = "nop"
- // }
- // console.log(newArr);
- let accumulator = 0
- let codeIndex = []
- function calculateAcc(array){
-  let indexes = []
-  for(let i = 0; i < array.length;){
-   if(indexes.includes(i)){
-    console.log(accumulator);
-    return "no";
-   } else{
-    if(array[i][0] === "acc"){
-     indexes.push(i)
-     accumulator += parseFloat(array[i][1])
-     ++i
-    } else if (array[i][0] === "jmp"){
-     indexes.push(i)
-     codeIndex.push(["jmp", "nop", i])
-     i += parseFloat(array[i][1])
-    } else if(array[i][0] === "nop") {
-     indexes.push(i)
-     codeIndex.push(["nop", "jmp", i])
-     ++i
+for(var i = 25; i < puzzleArr.length; i++){
+ let preamble = []
+ let current = Number(puzzleArr[i])
+ let works = false
+ for(var j = i - 25; j < i; j++){
+  preamble.push(Number(puzzleArr[j]))
+ }
+ for(var k = 0; k < preamble.length; k++) {
+  for (var l = 0; l < preamble.length; l++) {
+   if (preamble[k] !== preamble[l]) {
+    if (preamble[k] + preamble[l] === current) {
+     works = true
     }
    }
   }
-  return accumulator + "success!"
  }
-let wrong = []
+ if(!works){
+  console.log(current);
+ }
+}
 
 
- function calculateAcc2(array){
-  let indexes = []
-  for(let i = 0; i < array.length;){
-   if(indexes.includes(i)){
-    wrong.push(accumulator);
-    return "no";
-   } else{
-    if(array[i][0] === "acc"){
-     indexes.push(i)
-     accumulator += parseFloat(array[i][1])
-     ++i
-     continue
-    } else if (array[i][0] === "jmp"){
-     indexes.push(i)
-     i += parseFloat(array[i][1])
-     continue
-    } else if(array[i][0] === "nop") {
-     indexes.push(i)
-     ++i
-     continue
-    }
-    return accumulator
+
+function maxSubSum(arr) {
+ const answer1 = 15353384;
+   for(var i = 0; i < arr.length; i++){
+    var newArray = [];
+       var charAt = Number(arr[i])
+       newArray.push(charAt)
+       for(var j = i + 1; j < arr.length; j++){
+           var nextChar = Number(arr[j])
+           newArray.push(nextChar)
+           charAt += nextChar
+           if(charAt === answer1){
+            let theAnswer = Math.max(...newArray) + Math.min(...newArray)
+            return theAnswer
+           }
+
+       }
    }
-   return accumulator
-  }
- return accumulator
- }
+}
 
-calculateAcc(newArr)
+ console.log(maxSubSum(puzzleArr));
 
 
+ // //DAY 8
+ // const puzzle = $('#puzzle')
+ //
+ // let puzzleString = puzzle.html()
+ //
+ // // console.log(puzzleString);
+ //
+ // const puzzleArr = puzzleString.split('\n    ')
+ //
+ // // console.log(puzzleArr);
 
- console.log(codeIndex)
-
-
-  function checkIndexes(array){
-   let index = array[2]
-   let change = array[1]
-   let original = array[0]
-   newArr[index][0] = change
-   calculateAcc2(newArr)
-   newArr[index][0] = original
-  }
-
-  for(var k = 0; k < codeIndex.length; k++){
-   checkIndexes(codeIndex[k])
-  }
- console.log(wrong);
+//  let newArr = []
+//  puzzleArr.forEach(function(puzzle){
+//   let tinyArr = puzzle.split(" ")
+//   newArr.push(tinyArr)
+//  })
+//  // console.log(newArr);
+//  // for(var i = 57; i <= 57; i++){
+//  //  newArr[i][0] = "nop"
+//  // }
+//  for(var i = 297; i <= 297; i++){
+//   newArr[i][0] = "nop"
+//  }
+//  console.log(newArr);
+//  let accumulator = 0
+//  let codeIndex = []
+//  function calculateAcc(array){
+//   let indexes = []
+//   for(let i = 0; i < array.length;){
+//    if(indexes.includes(i)){
+//     console.log(accumulator);
+//     return "no";
+//    } else{
+//     if(array[i][0] === "acc"){
+//      indexes.push(i)
+//      accumulator += parseFloat(array[i][1])
+//      ++i
+//     } else if (array[i][0] === "jmp"){
+//      indexes.push(i)
+//      codeIndex.push(["jmp", "nop", i])
+//      i += parseFloat(array[i][1])
+//     } else if(array[i][0] === "nop") {
+//      indexes.push(i)
+//      codeIndex.push(["nop", "jmp", i])
+//      ++i
+//     }
+//    }
+//   }
+//   return accumulator + "success!"
+//  }
+// let wrong = []
+//
+//  console.log(calculateAcc(newArr));
+//  function calculateAcc2(array){
+//   let indexes = []
+//   for(let i = 0; i < array.length;){
+//    if(indexes.includes(i)){
+//     wrong.push(accumulator);
+//     return "no";
+//    } else{
+//     if(array[i][0] === "acc"){
+//      indexes.push(i)
+//      accumulator += parseFloat(array[i][1])
+//      ++i
+//      continue
+//     } else if (array[i][0] === "jmp"){
+//      indexes.push(i)
+//      i += parseFloat(array[i][1])
+//      continue
+//     } else if(array[i][0] === "nop") {
+//      indexes.push(i)
+//      ++i
+//      continue
+//     }
+//    }
+//   }
+//  return accumulator
+//  }
+//
+// calculateAcc(newArr)
+//
+//
+//
+//  console.log(codeIndex)
+//
+//
+//   function checkIndexes(array){
+//    let index = array[2]
+//    let change = array[1]
+//    let original = array[0]
+//    newArr[index][0] = change
+//    console.log(calculateAcc2(newArr));
+//    newArr[index][0] = original
+//   }
+//
+//   for(var k = 0; k < codeIndex.length; k++){
+//    checkIndexes(codeIndex[k])
+//   }
+//  console.log(wrong);
 
 //  //DAY 8 ^^^^^
 
