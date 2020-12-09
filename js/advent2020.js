@@ -11,648 +11,245 @@ $(document).ready(function(){
 
  // console.log(puzzleArr);
 
- let test = ["shiny gold bags contain 2 dark red bags.",
- "dark red bags contain 2 dark orange bags.",
- "dark orange bags contain 2 dark yellow bags.",
- "dark yellow bags contain 2 dark green bags.",
- "dark green bags contain 2 dark blue bags.",
- "dark blue bags contain 2 dark violet bags.",
- "dark violet bags contain no other bags."]
- // console.log(test);
-
- let testArr2 = []
- puzzleArr.forEach(function(string){
-  let newArr = string.split(" contain ")
-  testArr2.push(newArr)
+ let newArr = []
+ puzzleArr.forEach(function(puzzle){
+  let tinyArr = puzzle.split(" ")
+  newArr.push(tinyArr)
  })
- // console.log(testArr);
 
- // let finalArray = []
- // testArr2.forEach(function(array){
- //  let bagTitleArray = []
- //  let contentArray = []
- //  let bagArray = []
- //  bagTitleArray.push(array[0])
- //  contentArray.push(array[1].split(", "))
- //  bagArray.push(bagTitleArray)
- //  bagArray.push(contentArray)
- //  finalArray.push(bagArray)
- // })
- // console.log(finalArray);
- // console.log(testArr2);
-let finalArray = [[["shiny gold bags"], [["2 dark red bags"]]],
-     [["dark red bags"], [["2 dark orange bags."]]],
-     [["dark orange bags"], [["2 dark yellow bags."]]],
-     [["dark yellow bags"], [["2 dark green bags."]]],
-     [["dark green bags"], [["2 dark blue bags."]]],
-     [["dark blue bags"], [["2 dark violet bags."]]],
-     [["dark violet bags"], [["no other bags."]]]]
-
- let searchArr = ["shiny gold bags"]
- searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
+ // for(var i = 57; i <= 57; i++){
+ //  newArr[i][0] = "nop"
+ // }
+ // for(var i = 525; i <= 525; i++){
+ //  newArr[i][0] = "nop"
+ // }
+ // console.log(newArr);
+ let accumulator = 0
+ let codeIndex = []
+ function calculateAcc(array){
+  let indexes = []
+  for(let i = 0; i < array.length;){
+   if(indexes.includes(i)){
+    console.log(accumulator);
+    return "no";
+   } else{
+    if(array[i][0] === "acc"){
+     indexes.push(i)
+     accumulator += parseFloat(array[i][1])
+     ++i
+    } else if (array[i][0] === "jmp"){
+     indexes.push(i)
+     codeIndex.push(["jmp", "nop", i])
+     i += parseFloat(array[i][1])
+    } else if(array[i][0] === "nop") {
+     indexes.push(i)
+     codeIndex.push(["nop", "jmp", i])
+     ++i
     }
    }
   }
- })
-
-searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
-searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
-searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       // console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
- searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
- searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       // console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
- searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
- searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     if(!searchArr.includes(firstStr) && !searchArr.includes(firstStr + "s") && !searchArr.includes(firstStr.slice(0, -1))){
-      searchArr.push(firstStr)
-     }
-     // finalAnswer += numOne * multiply(firstStr)
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      if(!searchArr.includes(secondStr) && !searchArr.includes(secondStr + "s") && !searchArr.includes(secondStr.slice(0, -1))){
-       searchArr.push(secondStr)
-      }
-      // finalAnswer += numTwo * multiply(secondStr)
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(thirdStr) && !searchArr.includes(thirdStr + "s") && !searchArr.includes(thirdStr.slice(0, -1))){
-       searchArr.push(thirdStr)
-      }
-      // finalAnswer += numThree * multiply(thirdStr)
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      if(!searchArr.includes(fourthStr) && !searchArr.includes(fourthStr + "s") && !searchArr.includes(fourthStr.slice(0, -1))){
-       console.log(fourthStr);
-       searchArr.push(fourthStr )
-      }
-      // finalAnswer += numFour * multiply(fourthStr)
-     }
-    }
-   }
-  }
- })
-
-
-
-
- function multiply(string){
-  let answer = 0;
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(string)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     answer += numOne
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      answer += numTwo
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      answer += numThree
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numFour);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      answer += numFour
-     }
-    }
-   }
-  }
-  return answer
+  return accumulator + "success!"
  }
- console.log(searchArr);
+let wrong = []
 
-let finalAnswer = 0;
- searchArr.forEach(function(bag){
-  for(var i = 0; i < finalArray.length; i++){
-   if(finalArray[i][0][0].includes(bag)){
-    if(!finalArray[i][1][0][0].includes("no other")){
-     let current = finalArray[i];
-     // console.log(current);
-     let numOne = Number(current[1][0][0].slice(0, 1))
-     // console.log(numOne);
-     let firstStr = current[1][0][0].slice(2)
-     if(firstStr.includes(".")){
-      firstStr = firstStr.slice(0, firstStr.length - 1)
-     }
-     // console.log(firstStr);
-     finalAnswer += numOne * multiply(firstStr)
-     finalAnswer += numOne
-     if(current[1][0][1] != undefined){
-      let numTwo = Number(current[1][0][1].slice(0, 1))
-      // console.log(numTwo);
-      let secondStr = current[1][0][1].slice(2)
-      if(secondStr.includes(".")){
-       secondStr = secondStr.slice(0, secondStr.length - 1)
-      }
-      // console.log(secondStr);
-      finalAnswer += numTwo * multiply(secondStr)
-      finalAnswer += numTwo
-     }
-     if(current[1][0][2] != undefined){
-      let numThree = Number(current[1][0][2].slice(0, 1))
-      // console.log(numThree);
-      let thirdStr = current[1][0][2].slice(2)
-      if(thirdStr.includes(".")){
-       thirdStr = thirdStr.slice(0, thirdStr.length - 1)
-      }
-      // console.log(thirdStr);
-      finalAnswer += numThree * multiply(thirdStr)
-      finalAnswer += numThree
-     }
-     if(current[1][0][3] != undefined){
-      let numFour = Number(current[1][0][3].slice(0, 1))
-      // console.log(numThree);
-      let fourthStr = current[1][0][3].slice(2)
-      if(fourthStr.includes(".")){
-       fourthStr = fourthStr.slice(0, fourthStr.length - 1)
-      }
-      // console.log(thirdStr);
-      finalAnswer += numFour * multiply(fourthStr)
-      finalAnswer += numFour
-     }
+
+ function calculateAcc2(array){
+  let indexes = []
+  for(let i = 0; i < array.length;){
+   if(indexes.includes(i)){
+    wrong.push(accumulator);
+    return "no";
+   } else{
+    if(array[i][0] === "acc"){
+     indexes.push(i)
+     accumulator += parseFloat(array[i][1])
+     ++i
+     continue
+    } else if (array[i][0] === "jmp"){
+     indexes.push(i)
+     i += parseFloat(array[i][1])
+     continue
+    } else if(array[i][0] === "nop") {
+     indexes.push(i)
+     ++i
+     continue
     }
+    return accumulator
    }
+   return accumulator
   }
- })
- console.log(finalAnswer);
+ return accumulator
+ }
+
+calculateAcc(newArr)
+
+
+
+ console.log(codeIndex)
+
+
+  function checkIndexes(array){
+   let index = array[2]
+   let change = array[1]
+   let original = array[0]
+   newArr[index][0] = change
+   calculateAcc2(newArr)
+   newArr[index][0] = original
+  }
+
+  for(var k = 0; k < codeIndex.length; k++){
+   checkIndexes(codeIndex[k])
+  }
+ console.log(wrong);
+
+//  //DAY 8 ^^^^^
+
+ //   // DAY 7
+//  const puzzle = $('#puzzle')
+//  let puzzleString = puzzle.html()
+//  const puzzleArr = puzzleString.split('\n    ')
+//
+//  let testArr2 = []
+//  puzzleArr.forEach(function(string){
+//   let newArr = string.split(" contain ")
+//   testArr2.push(newArr)
+//  })
+//
+//  let finalArray = []
+//  testArr2.forEach(function(array){
+//   let bagTitleArray = []
+//   let contentArray = []
+//   let bagArray = []
+//   bagTitleArray.push(array[0])
+//   contentArray.push(array[1].split(", "))
+//   bagArray.push(bagTitleArray)
+//   bagArray.push(contentArray)
+//   finalArray.push(bagArray)
+//  })
+//
+//  let searchArr = ["shiny gold bags"]
+//
+//  function multiply(string){
+//   let answer = 0;
+//   for(var i = 0; i < finalArray.length; i++){
+//    if(finalArray[i][0][0].includes(string)){
+//     if(!finalArray[i][1][0][0].includes("no other")){
+//      let current = finalArray[i];
+//      let numOne = Number(current[1][0][0].slice(0, 1))
+//      let firstStr = current[1][0][0].slice(2)
+//      if(firstStr.includes(".")){
+//       firstStr = firstStr.slice(0, firstStr.length - 1)
+//      }
+//      if(multiply(firstStr) === 0){
+//       answer += numOne
+//      } else {
+//       answer += numOne * multiply(firstStr) + numOne
+//      }
+//      if(current[1][0][1] != undefined){
+//       let numTwo = Number(current[1][0][1].slice(0, 1))
+//       let secondStr = current[1][0][1].slice(2)
+//       if(secondStr.includes(".")){
+//        secondStr = secondStr.slice(0, secondStr.length - 1)
+//       }
+//       if(multiply(secondStr) === 0){
+//        answer += numTwo
+//       } else {
+//        answer += numTwo * multiply(secondStr) + numTwo
+//       }
+//      }
+//      if(current[1][0][2] != undefined){
+//       let numThree = Number(current[1][0][2].slice(0, 1))
+//       let thirdStr = current[1][0][2].slice(2)
+//       if(thirdStr.includes(".")){
+//        thirdStr = thirdStr.slice(0, thirdStr.length - 1)
+//       }
+//       if(multiply(thirdStr) === 0){
+//        answer += numThree
+//       } else {
+//        answer += numThree * multiply(thirdStr) + numThree
+//       }
+//      }
+//      if(current[1][0][3] != undefined) {
+//       let numFour = Number(current[1][0][3].slice(0, 1))
+//       let fourthStr = current[1][0][3].slice(2)
+//       if (fourthStr.includes(".")) {
+//        fourthStr = fourthStr.slice(0, fourthStr.length - 1)
+//       }
+//       if (multiply(fourthStr) === 0) {
+//        answer += numFour
+//       } else {
+//        answer += numFour * multiply(fourthStr) + numFour
+//       }
+//      }
+//     }
+//    }
+//   }
+//   return answer
+//  }
+//
+// let realAnswer = 1
+//
+//  searchArr.forEach(function(bag){
+//   let finalAnswer = 0;
+//   for(var i = 0; i < finalArray.length; i++){
+//    if(finalArray[i][0][0].includes(bag)){
+//     if(!finalArray[i][1][0][0].includes("no other")){
+//      let current = finalArray[i];
+//      let numOne = Number(current[1][0][0].slice(0, 1))
+//      let firstStr = current[1][0][0].slice(2)
+//      if(firstStr.includes(".")){
+//       firstStr = firstStr.slice(0, firstStr.length - 1)
+//      }
+//      if(multiply(firstStr) === 0){
+//        finalAnswer += numOne
+//      } else {
+//        finalAnswer += numOne * multiply(firstStr) + numOne
+//      }
+//      if(current[1][0][1] != undefined){
+//       let numTwo = Number(current[1][0][1].slice(0, 1))
+//       let secondStr = current[1][0][1].slice(2)
+//       if(secondStr.includes(".")){
+//        secondStr = secondStr.slice(0, secondStr.length - 1)
+//       }
+//       if(multiply(secondStr) === 0){
+//         finalAnswer += numTwo
+//       } else {
+//         finalAnswer += numTwo * multiply(secondStr) + numTwo
+//       }
+//      }
+//      if(current[1][0][2] != undefined){
+//       let numThree = Number(current[1][0][2].slice(0, 1))
+//       let thirdStr = current[1][0][2].slice(2)
+//       if(thirdStr.includes(".")){
+//        thirdStr = thirdStr.slice(0, thirdStr.length - 1)
+//       }
+//       if(multiply(thirdStr) === 0){
+//         finalAnswer += numThree
+//       } else {
+//         finalAnswer += numThree * multiply(thirdStr) + numThree
+//       }
+//      }
+//      if(current[1][0][3] != undefined){
+//       let numFour = Number(current[1][0][3].slice(0, 1))
+//       let fourthStr = current[1][0][3].slice(2)
+//       if(fourthStr.includes(".")){
+//        fourthStr = fourthStr.slice(0, fourthStr.length - 1)
+//       }
+//       if(multiply(fourthStr) === 0){
+//         finalAnswer += numFour
+//       } else {
+//         finalAnswer += numFour * multiply(fourthStr) + numFour
+//       }
+//      }
+//     }
+//    }
+//   }
+//   realAnswer *= finalAnswer
+//  })
+//  console.log(realAnswer);
+// //DAY 7 ^^^^^
+
+
 
  // for(var i = 0; i < finalArray.length; i++){
  //  if(finalArray[i][0][0].includes("muted plum bags")){
