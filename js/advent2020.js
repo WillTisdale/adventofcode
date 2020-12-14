@@ -3,219 +3,377 @@ $(document).ready(function(){
 
  const puzzle = $('#puzzle1')
 
+ const timeStamp = $('#puzzle2')
+
  let puzzleString = puzzle.html()
+
+ let time = Number(timeStamp.html())
+
+ console.log(time);
 
  // console.log(puzzleString);
 
- const puzzleArr = puzzleString.split('\n    ')
+ const puzzleArr = puzzleString.split(',')
 
  console.log(puzzleArr);
+ let t = 0
+puzzleArr.forEach(function(bus){
+ let array = []
+ do{
+  array.push(t).repeat(t)
+  array.push(Number(bus))
+ }while()
+})
+// // Part 1
+ // let finalArray = []
+ // puzzleArr.forEach(function(bus){
+ //  let array = [0]
+ //  do{
+ //   array.push(Number(bus) + array[array.length -1])
+ //  }while(Math.max(...array) < time * 1.1)
+ //  finalArray.push(array)
+ // })
+ //
+ // console.log(finalArray);
+ //
+ // let newArray = []
+ // finalArray.forEach(function(array){
+ //  array = array.filter(n => n >= time)
+ //  newArray.push(array)
+ // })
+ //
+ // console.log(newArray);
+ //
+ // let smallTime = 0;
+ // let bus;
+ // newArray.forEach(function(array){
+ //  let current = Math.min(...array)
+ //  if(smallTime === 0) {
+ //   smallTime = current
+ //  }
+ //  if(current < smallTime){
+ //   bus = array[1] - array[0];
+ //   smallTime = current
+ //  }
+ // })
+ // console.log(bus);
+ // console.log(smallTime);
+ // console.log((bus * (smallTime - time)));
+ // //DAY 13^^^
 
- let newArray = []
- puzzleArr.forEach(function(string){
-  newArray.push(string.split(""))
- })
+ // //DAY 12
+//  const puzzle = $('#puzzle1')
+//
+//  let puzzleString = puzzle.html()
+//
+//  // console.log(puzzleString);
+//
+//  const puzzleArr = puzzleString.split('\n    ')
+//
+//  console.log(puzzleArr);
+//
+//  let puzzArr = []
+//  puzzleArr.forEach(function(direction){
+//   let letter = direction.slice(0, 1)
+//   let number = direction.slice(1, direction.length)
+//   let newArr = [letter, Number(number)]
+//   puzzArr.push(newArr)
+//  })
+//
+//  console.log(puzzArr);
+// let coords = [0, 0]
+//  let waypoint = [1, 10]
+//  puzzArr.forEach(function(array){
+//   let letter = array[0]
+//   let number = array[1]
+//    if(letter === "N"){
+//     waypoint[0] += number
+//    } else if(letter === "S"){
+//     waypoint[0] -= number
+//    } else if(letter === "E"){
+//     waypoint[1] += number
+//    } else if(letter === "W"){
+//     waypoint[1] -= number
+//    } else if(letter === "L"){
+//     if(number === 90){
+//      waypoint = [waypoint[1], waypoint[0] * -1]
+//     } else if(number === 180){
+//      waypoint = [waypoint[0] * -1, waypoint[1] * -1]
+//     } else if(number === 270){
+//      waypoint = [waypoint[1] * -1, waypoint[0]]
+//     }
+//    } else if(letter === "R"){
+//     if(number === 90){
+//      waypoint = [waypoint[1] * -1, waypoint[0]]
+//     } else if(number === 180){
+//      waypoint = [waypoint[0] * -1, waypoint[1] * -1]
+//     } else if(number === 270){
+//      waypoint = [waypoint[1], waypoint[0] * -1]
+//     }
+//    } else if(letter === "F"){
+//     coords[0] += waypoint[0] * number
+//     coords[1] += waypoint[1] * number
+//    }
+//  })
+//
+//  console.log(coords);
 
- const lookRight = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i][j + 1] === "#") {
-    count += 1
-   }
-   if (newArray[i][j + 1] === ".") {
-    j += 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookRight(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookLeft = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i][j - 1] === "#") {
-    count += 1
-   }
-   if (newArray[i][j - 1] === ".") {
-    j -= 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count = lookLeft(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookUp = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i - 1][j] === "#") {
-    count += 1
-   }
-   if (newArray[i - 1][j] === ".") {
-    i -= 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookUp(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookUpAndRight = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i - 1][j + 1] === "#") {
-    count += 1
-   }
-   if (newArray[i - 1][j + 1] === ".") {
-    j += 1
-    i -= 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookUpAndRight(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookUpAndLeft = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i - 1][j - 1] === "#") {
-    count += 1
-   }
-   if (newArray[i - 1][j - 1] === ".") {
-    i -= 1
-    j -= 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookUpAndLeft(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookDown = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i + 1][j] === "#") {
-    count += 1
-   }
-   if (newArray[i + 1][j] === ".") {
-    i += 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookDown(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookDownAndRight = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i + 1][j + 1] === "#") {
-    count += 1
-   }
-   if (newArray[i + 1][j + 1] === ".") {
-    i += 1
-    j += 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookDownAndRight(i, j, count)
-    }
-   }
-  }
-  return count
- }
- const lookDownAndLeft = (i, j, count) => {
-  if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-   if (newArray[i + 1][j - 1] === "#") {
-    count += 1
-   }
-   if (newArray[i + 1][j - 1] === ".") {
-    i += 1
-    j -= 1
-    if (i > 0 && i < newArray.length - 1 && j > 0 && j < newArray[i].length - 1) {
-     count += lookDownAndLeft(i, j, count)
-    }
-   }
-  }
-  return count
- }
-
- function findCount(i, j) {
-  let count = 0;
-   count += lookRight(i, j, count)
-   count += lookRight(i, j, count)
-   count += lookUp(i, j, count)
-   count += lookUpAndRight(i, j, count)
-   count += lookUpAndLeft(i, j, count)
-   count += lookDown(i, j, count)
-   count += lookDownAndRight(i, j, count)
-   count += lookDownAndLeft(i, j, count)
-  return count
-  }
-
-
- function assignSeats(array){
-  array.forEach(function(thing){
-   var i = thing[0]
-   var j = thing[1]
-   var char = thing[2]
-   newArray[i][j] = char
-  })
- }
-
- function seatingRound() {
-  var indexes = []
-  for (var i = 0; i < newArray.length; i++) {
-   for (var j = 0; j < newArray[i].length; j++) {
-    if (newArray[i][j] === "L") {
-     let count = findCount(i, j);
-     if (count === 0) {
-      indexes.push([i, j, "#"])
-     }
-    }
-    if (newArray[i][j] === "#") {
-     let count = findCount(i, j);
-     if (count >= 5) {
-      indexes.push([i, j, "L"])
-     }
-    }
-   }
-  }
-  assignSeats(indexes)
-  return newArray
- }
-
- function settleSeats(){
-  let count = 0
-  do{
-   count += 1
-   seatingRound()
-  }while(seatingRound() !== seatingRound())
-  let answer = 0;
-  console.log(seatingRound());
-  seatingRound().forEach(function(array){
-   array.forEach(function(char){
-    if(char === "#"){
-     answer += 1;
-    }
-   })
-  })
-  console.log(count);
-  console.log(answer);
- }
-
- settleSeats();
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
- settleSeats()
-
-//2494
-
+// //DAY 12 ^^^^
 
 //  //DAY 11
+ // const puzzle = $('#puzzle1')
+ //
+ // let puzzleString = puzzle.html()
+ //
+ // // console.log(puzzleString);
+ //
+ // const puzzleArr = puzzleString.split('\n    ')
+ //
+ // console.log(puzzleArr);
+ //
+ // let newArray = []
+ // puzzleArr.forEach(function(string){
+ //  newArray.push(string.split(""))
+ // })
+ //
+ // const lookRight = (i, j) => {
+ //  let count = 0
+ //  if (i >= 0 && i <= newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //   if (newArray[i][j + 1] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i][j + 1] === ".") {
+ //    j += 1
+ //    if (i >= 0 && i <= newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //     count += lookRight(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookLeft = (i, j) => {
+ //  let count = 0
+ //  if (i >= 0 && i <= newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //   if (newArray[i][j - 1] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i][j - 1] === ".") {
+ //    j -= 1
+ //    if (i >= 0 && i <= newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //     count = lookLeft(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookUp = (i, j) => {
+ //  let count = 0
+ //  if (i > 0 && i <= newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //   if (newArray[i - 1][j] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i - 1][j] === ".") {
+ //    i -= 1
+ //    if (i > 0 && i <= newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //     count += lookUp(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookUpAndRight = (i, j) => {
+ //  let count = 0
+ //  if (i > 0 && i <= newArray.length - 1 && j >= 0 && j < newArray[i].length - 1) {
+ //   if (newArray[i - 1][j + 1] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i - 1][j + 1] === ".") {
+ //    j += 1
+ //    i -= 1
+ //    if (i > 0 && i <= newArray.length - 1 && j >= 0 && j < newArray[i].length - 1) {
+ //     count += lookUpAndRight(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookUpAndLeft = (i, j) => {
+ //  let count = 0
+ //  if (i > 0 && i <= newArray.length - 1 && j > 0 && j <= newArray[i].length - 1) {
+ //   if (newArray[i - 1][j - 1] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i - 1][j - 1] === ".") {
+ //    i -= 1
+ //    j -= 1
+ //    if (i > 0 && i <= newArray.length - 1 && j > 0 && j <= newArray[i].length - 1) {
+ //     count += lookUpAndLeft(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookDown = (i, j) => {
+ //  let count = 0
+ //  if (i >= 0 && i < newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //   if (newArray[i + 1][j] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i + 1][j] === ".") {
+ //    i += 1
+ //    if (i >= 0 && i < newArray.length - 1 && j >= 0 && j <= newArray[i].length - 1) {
+ //     count += lookDown(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookDownAndRight = (i, j) => {
+ //  let count = 0
+ //  if (i >= 0 && i < newArray.length - 1 && j >= 0 && j < newArray[i].length - 1) {
+ //   if (newArray[i + 1][j + 1] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i + 1][j + 1] === ".") {
+ //    i += 1
+ //    j += 1
+ //    if (i >= 0 && i < newArray.length - 1 && j >= 0 && j < newArray[i].length - 1) {
+ //     count += lookDownAndRight(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ // const lookDownAndLeft = (i, j) => {
+ //  let count = 0
+ //  if (i >= 0 && i < newArray.length - 1 && j > 0 && j <= newArray[i].length - 1) {
+ //   if (newArray[i + 1][j - 1] === "#") {
+ //    count += 1
+ //   }
+ //   if (newArray[i + 1][j - 1] === ".") {
+ //    i += 1
+ //    j -= 1
+ //    if (i >= 0 && i < newArray.length - 1 && j > 0 && j <= newArray[i].length - 1) {
+ //     count += lookDownAndLeft(i, j)
+ //    }
+ //   }
+ //  }
+ //  return count
+ // }
+ //
+ // function findCount(i, j) {
+ //  let count = 0;
+ //   count += lookRight(i, j, count)
+ //   count += lookLeft(i, j, count)
+ //   count += lookUp(i, j, count)
+ //   count += lookUpAndRight(i, j, count)
+ //   count += lookUpAndLeft(i, j, count)
+ //   count += lookDown(i, j, count)
+ //   count += lookDownAndRight(i, j, count)
+ //   count += lookDownAndLeft(i, j, count)
+ //  return count
+ //  }
+ //
+ //
+ // function assignSeats(array){
+ //  array.forEach(function(thing){
+ //   var i = thing[0]
+ //   var j = thing[1]
+ //   var char = thing[2]
+ //   newArray[i][j] = char
+ //  })
+ // }
+ //
+ // function seatingRound() {
+ //  let indexes = []
+ //  for (let i = 0; i < newArray.length; i++) {
+ //   for (let j = 0; j < newArray[i].length; j++) {
+ //    if (newArray[i][j] === "L") {
+ //
+ //     let count = findCount(i, j);
+ //
+ //     if (count === 0 || isNaN(count)) {
+ //      indexes.push([i, j, "#"])
+ //     }
+ //    }
+ //    if (newArray[i][j] === "#") {
+ //     let count = findCount(i, j);
+ //     if (count >= 5) {
+ //
+ //      indexes.push([i, j, "L"])
+ //     }
+ //    }
+ //   }
+ //  }
+ //  assignSeats(indexes)
+ //  return newArray
+ // }
+ //
+ //
+ //
+ //
+ //
+ //
+ // function settleSeats(){
+ //  let answer = 0;
+ //  console.log(seatingRound());
+ //  seatingRound().forEach(function(array){
+ //   array.forEach(function(char){
+ //    if(char === "#"){
+ //     answer += 1;
+ //    }
+ //   })
+ //  })
+ //  console.log(answer);
+ // }
+ //
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+ // settleSeats()
+
+//  //DAY 11^^^^
 
 
 //   //DAY 10
@@ -243,7 +401,6 @@ $(document).ready(function(){
 //   } else {
 //    plusThree += 1
 //   }
-//   console.log(`${next} - ${lowest} = ${next - lowest}`);
 //   return lowest
 //  }
 //
@@ -258,172 +415,11 @@ $(document).ready(function(){
 //  console.log(plusThree);
 //  console.log(`Answer: ${plusOne * plusThree}`);
 //  console.log(newArray);
+// newArray.push(19)
+// newArray.push(22)
+//  console.log(newArray);
 //
 //
-//  function oneMore(array){
-//   console.log(array);
-//   console.log("oneMore");
-//   for (var i = array.length - 1; i < array.length; i++) {
-//     for (var j = 0; j < newArray.length; j++) {
-//      if (newArray[j] - array[i] === 1) {
-//       console.log(array[i]);
-//       if (!array.includes(newArray[j])) {
-//        array.push(newArray[j])
-//        var one = oneMore(array)
-//        var two = twoMore(array)
-//        var three = threeMore(array)
-//        // finalArray.push(eachArr);
-//       }
-//      }
-//     }
-//   }
-//   console.log(array);
-//   console.log(one);
-//   console.log(two);
-//   console.log(three);
-//   return array
-//  }
-//
-//  function twoMore(array){
-//   console.log(array);
-//   console.log("twoMore");
-//   for (var i = array.length - 1; i < array.length; i++) {
-//     for (var j = 0; j < newArray.length; j++) {
-//      if (newArray[j] - array[i] === 2) {
-//       console.log(array[i]);
-//       if (!array.includes(newArray[j])) {
-//        array.push(newArray[j])
-//        var one = oneMore(array)
-//        var two = twoMore(array)
-//        var three = threeMore(array)
-//        // finalArray.push(eachArr);
-//       }
-//      }
-//     }
-//   }
-//   console.log(array);
-//   console.log(one);
-//   console.log(two);
-//   console.log(three);
-//   return array
-//  }
-//
-//  function threeMore(array){
-//   console.log(array);
-//   console.log("threeMore");
-//   for (var i = array.length - 1; i < array.length; i++) {
-//     for (var j = 0; j < newArray.length; j++) {
-//      if (newArray[j] - array[i] === 3) {
-//       console.log(array[i]);
-//       if (!array.includes(newArray[j])) {
-//        array.push(newArray[j])
-//        var one = oneMore(array)
-//        var two = twoMore(array)
-//        var three = threeMore(array)
-//        // finalArray.push(eachArr);
-//       }
-//      }
-//     }
-//    }
-//   console.log(array);
-//   console.log(one);
-//   console.log(two);
-//   console.log(three);
-//   return array
-//  }
-//
-// oneMore([0])
-//
-//
-
-
-
-
-
-
-//  function creatArray(array){
-//   let one = [0]
-//   let two = [0]
-//   let three = [0]
-//   for(var i = one.length - 1; i < one.length; i++){
-//    for(var j = 0; j < array.length; j++){
-//     if(array[j] - one[i] === 1){
-//      one.push(array[j])
-//      creatArrayOne(array, one)
-//      creatArrayTwo(array, one)
-//      creatArrayThree(array, one)
-//     }
-//    }
-//   }
-//   for(var i = two.length - 1; i < two.length; i++){
-//    for(var j = 0; j < array.length; j++){
-//     if(array[j] - two[i] === 2){
-//      two.push(array[j])
-//      creatArrayOne(array, two)
-//      creatArrayTwo(array, two)
-//      creatArrayThree(array, two)
-//     }
-//    }
-//   }
-//   for(var i = three.length -1; i < three.length; i++){
-//    for(var j = 0; j < array.length; j++){
-//     if(array[j] - three[i] === 3){
-//      three.push(array[j])
-//      creatArrayOne(array, three)
-//      creatArrayTwo(array, three)
-//      creatArrayThree(array, three)
-//     }
-//    }
-//   }
-//  }
-//
-//  function creatArrayOne(array, array1){
-//   for(var i = 0; i < array1.length; i++){
-//    for(var j = 0; j < array.length; j++){
-//     if(array[j] - array1[i] === 1){
-//      array1.push(array[j])
-//      creatArrayOne(array, array1)
-//      creatArrayTwo(array, array1)
-//      creatArrayThree(array, array1)
-//     }
-//    }
-//   }
-//   if(array1.includes(19)){
-//    FinalArray.push(array1)
-//   }
-//  }
-// let FinalArray = []
-//  function creatArrayTwo(array, array1){
-//   for(var i = 0; i < array1.length; i++){
-//    for(var j = 0; j < array.length; j++){
-//     if(array[j] - array1[i] === 2){
-//      array1.push(array[j])
-//      creatArrayOne(array, array1)
-//      creatArrayTwo(array, array1)
-//      creatArrayThree(array, array1)
-//     }
-//    }
-//   }
-//   if(array1.includes(19)){
-//    FinalArray.push(array1)
-//   }
-//  }
-//
-//  function creatArrayThree(array, array1){
-//   for(var i = 0; i < array1.length; i++){
-//    for(var j = 0; j < array.length; j++){
-//     if(array[j] - array1[i] === 3){
-//      array1.push(array[j])
-//      creatArrayOne(array, array1)
-//      creatArrayTwo(array, array1)
-//      creatArrayThree(array, array1)
-//     }
-//    }
-//   }
-//   if(array1.includes(19)){
-//    FinalArray.push(array1)
-//   }
-//  }
 
  //DAY 10 ^^^^
 
