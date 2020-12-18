@@ -1,64 +1,139 @@
 $(document).ready(function(){
  "use strict";
 
- const puzzle = $('#puzzle1')
+//  const puzzle = $('#puzzle1')
+//
+//  const timeStamp = $('#puzzle2')
+//
+//  let puzzleString = puzzle.html()
+//
+//  let time = Number(timeStamp.html())
+//
+//  // console.log(time);
+//
+//  // console.log(puzzleString);
+//
+//  const puzzleArr = puzzleString.split(',')
+//
+//  console.log(puzzleArr);
+//
+//  let finalArray = []
+// puzzleArr.forEach(function(bus){
+//  if(bus !== "x"){
+//   let array = []
+//   let index = puzzleArr.indexOf(bus)
+//   console.log(index + " " + bus);
+//   // for(var i = 0; i < index; i++){
+//   //  array.push(".")
+//   // }
+//   do{
+//    array.push(Number(bus))
+//    for(var i = 0; i < Number(bus) - 1; i++){
+//     array.push(".")
+//    }
+//   }while(array.length < 100)
+//   finalArray.push(array)
+//  }
+//
+// })
+//
+//  console.log(finalArray);
 
- const timeStamp = $('#puzzle2')
+// for(let i = 0; i < finalArray[0].length; i++){
+//    if(finalArray[0][i] === 17){
+//     if(finalArray[1][i + 2] === 13){
+//      if(finalArray[2][i + 3] === 19){
+//       console.log(i);
+//       // if(finalArray[3][i + 3] === 29){
+//       //  if(finalArray[4][i + 4] === 19){
+//       //   if(finalArray[5][i + 5] === 23){
+//       //    if(finalArray[6][i + 6] === 937){
+//       //     if(finalArray[7][i + 7] === 37){
+//       //      if(finalArray[8][i + 8] === 17){
+//       //       console.log(i);
+//       //      }
+//       //     }
+//       //    }
+//       //   }
+//       //  }
+//       // }
+//      }
+//     }
+//    }
+// }
 
- let puzzleString = puzzle.html()
+ for(let i = 0; i < 300; i++){
+  let answer = 17 * i;
+  for(let j = 0; j < 300; j++){
+   if(13*j === answer + 2) {
+   for(let k = 0; k < 300; k++){
+     if (19 * k === answer + 3) {
+      console.log(answer);
+                   break;
+     }}}}}
 
- let time = Number(timeStamp.html())
+const num = 10000000
+for(let i = 0; i < num; i++){
+ let answer = 13 * i;
+  for(let j = 0; j < num; j++){
+   if(41*j === answer + 3){
+   for(let k = 0; k < num; k++){
+    if(569*k === answer + 13){
+    for(let l = 0; l < num; l++){
+     if(29*l === answer + 15){
+     for(let m = 0; m < num; m++){
+      if(19*m === answer + 32){
+      for(let n = 0; n < num; n++){
+       if(23*n === answer + 36){
+       for(let o = 0; o < num; o++){
+        if(937*o === answer + 44){
+        for(let p = 0; p < num; p++){
+         if(37*p === answer + 50){
+         for(let q = 0; q < num; q++){
+          if(17*q === answer + 61){
+           console.log(answer);
+           break;
+          }}}}}}}}}}}}}}}}};
 
- console.log(time);
 
- // console.log(puzzleString);
 
- const puzzleArr = puzzleString.split(',')
 
- console.log(puzzleArr);
- let t = 0
-puzzleArr.forEach(function(bus){
- let array = []
- do{
-  array.push(t).repeat(t)
-  array.push(Number(bus))
- }while()
-})
-// // Part 1
- // let finalArray = []
- // puzzleArr.forEach(function(bus){
- //  let array = [0]
- //  do{
- //   array.push(Number(bus) + array[array.length -1])
- //  }while(Math.max(...array) < time * 1.1)
- //  finalArray.push(array)
- // })
- //
- // console.log(finalArray);
- //
- // let newArray = []
- // finalArray.forEach(function(array){
- //  array = array.filter(n => n >= time)
- //  newArray.push(array)
- // })
- //
- // console.log(newArray);
- //
- // let smallTime = 0;
- // let bus;
- // newArray.forEach(function(array){
- //  let current = Math.min(...array)
- //  if(smallTime === 0) {
- //   smallTime = current
- //  }
- //  if(current < smallTime){
- //   bus = array[1] - array[0];
- //   smallTime = current
- //  }
- // })
- // console.log(bus);
- // console.log(smallTime);
- // console.log((bus * (smallTime - time)));
+
+// Part 1
+//  let finalArray = []
+//  puzzleArr.forEach(function(bus){
+//   let array = [0]
+//   do{
+//    array.push(Number(bus) + array[array.length -1])
+//   }while(Math.max(...array) < time * 1.1)
+//   finalArray.push(array)
+//  })
+//
+//  console.log(finalArray);
+//
+//  let newArray = []
+//  finalArray.forEach(function(array){
+//   array = array.filter(n => n >= time)
+//   newArray.push(array)
+//  })
+//
+//  console.log(newArray);
+//
+//  let smallTime = 0;
+//  let bus;
+//  newArray.forEach(function(array){
+//   let current = Math.min(...array)
+//   if(smallTime === 0) {
+//    smallTime = current
+//   }
+//   if(current < smallTime){
+//    bus = array[1] - array[0];
+//    smallTime = current
+//   }
+//  })
+//  console.log(bus);
+//  console.log(smallTime);
+//  console.log((bus * (smallTime - time)));
  // //DAY 13^^^
 
  // //DAY 12
@@ -415,13 +490,55 @@ puzzleArr.forEach(function(bus){
 //  console.log(plusThree);
 //  console.log(`Answer: ${plusOne * plusThree}`);
 //  console.log(newArray);
-// newArray.push(19)
-// newArray.push(22)
+// newArray.push(153)
+// newArray.push(156)
 //  console.log(newArray);
 //
+// let finalArray = []
 //
+// function oneMore(array){
+//  for(var i = 0; i < newArray.length; i ++){
+//   if(newArray[i] - 1 === array[array.length - 1]){
+//    array.push(newArray[i])
+//    oneMore(array)
+//    twoMore(array)
+//    threeMore(array)
+//    return array;
+//   }
+//  }
+// }
+// function twoMore(array){
+//  for(var i = 0; i < newArray.length; i ++){
+//   if(newArray[i] - 2 === array[array.length - 1]){
+//    array.push(newArray[i])
+//    oneMore(array)
+//    twoMore(array)
+//    threeMore(array)
+//    return array;
+//   }
+//  }
+// }
+// function threeMore(array){
+//  for(var i = 0; i < newArray.length; i ++){
+//   if(newArray[i] - 3 === array[array.length - 1]){
+//    array.push(newArray[i])
+//    oneMore(array)
+//    twoMore(array)
+//    threeMore(array)
+//    return array;
+//   }
+//  }
+// }
+//
+//
+//
+//
+// console.log(oneMore([0]));
+// console.log(twoMore([0]));
+// console.log(threeMore([0]));
 
- //DAY 10 ^^^^
+
+//DAY 10 ^^^^
 
 //  //DAY 9
 // const puzzle = $('#puzzle')
