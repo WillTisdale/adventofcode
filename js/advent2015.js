@@ -50,7 +50,15 @@ $(document).ready(function(){
         }
     }
 
-    console.log(allInfo);
+    for (var i = 0; i < allInfo.length; i++){
+        for(var j = 0; j < allInfo[i].length; j++){
+            for(var k = 0; k < allInfo[i][j].length; k++){
+                allInfo[i][j][k] = allInfo[i][j][k].split("-")
+            }
+        }
+    }
+
+    console.log(allInfo[0][0][1]);
 
     let myTicket = $('#myTicket')
 
@@ -66,7 +74,98 @@ $(document).ready(function(){
 
     nearbyTickets = nearbyTickets.split("\n    ")
 
+    nearbyTickets = nearbyTickets.map(string => string.split(","))
+
     console.log(nearbyTickets);
+
+    let doesNotFit = [];
+
+    const newNearbyTickets = []
+
+    nearbyTickets.forEach(function(ticket){
+        ticket.forEach(function(number){
+            number = Number(number);
+            count = 0;
+            var fits = 0
+            for (var i = 0; i < allInfo.length; i++){
+                for(var j = 0; j < allInfo[i].length; j++){
+                    for(var k = 0; k < allInfo[i][j].length; k++){
+                        for(var l = 0; l < 1; l++) {
+                            if (number < Number(allInfo[i][j][k][l + 1]) && number > Number(allInfo[i][j][k][l])) {
+                                fits += 1
+                            }
+                        }
+                    }
+                }
+            }
+            if(fits < 1){
+                doesNotFit.push(number)
+                nearbyTickets.splice(nearbyTickets.indexOf(ticket), 1)
+            }
+        })
+    })
+
+    console.log(doesNotFit);
+
+    const answer = doesNotFit.reduce((total, current) => {
+        return total += current;
+    }, 0)
+
+    var newTicket = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]]
+
+    console.log(nearbyTickets.length);
+
+    function checkTickets(n, o, lowLow, lowHigh, highLow, highHigh){
+        let count = 0;
+        nearbyTickets.forEach(function(ticket){
+            for(var m = n; m < o; m++){
+                let newNumber = Number(ticket[m])
+                let index = allInfo.indexOf(allInfo[i])
+                if((newNumber >= lowLow && newNumber <= lowHigh) || (newNumber >= highLow && newNumber <= highHigh)){
+                    count += 1
+                }
+            }
+        })
+        return count
+    }
+
+    // function newFunc(){
+    //     for (var i = 0; i < allInfo.length; i++){
+    //         for(var j = 0; j < allInfo[i].length; j++){
+    //             var lowHigh = undefined
+    //             var lowLow = undefined
+    //             var highHigh = undefined
+    //             var highLow = undefined
+    //             for(var k = 0; k < allInfo[i][j].length; k++){
+    //                 for(var l = 0; l < 1; l++) {
+    //                     if(k === 0){
+    //                         lowHigh = Number(allInfo[i][j][k][l + 1])
+    //                         lowLow = Number(allInfo[i][j][k][l])
+    //                     } else if(k === 1){
+    //                         highHigh = Number(allInfo[i][j][k][l + 1])
+    //                         highLow = Number(allInfo[i][j][k][l])
+    //                     }
+    //                 }
+    //                 if(highLow !== undefined){
+    //                     for(let p = 0; i < 20; p++){
+    //                         if(checkTickets(p, p+1, lowLow, lowHigh, highLow, highHigh) >= 195){
+    //                             console.log(allInfo[i][j] + "could be index " + p)
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // newFunc()
+
+    // console.log(checkTickets(0, 1, 41, 526, 547, 973));
+
+
+    console.log(newTicket);
+
+    console.log(answer);
 
 
     // const puzzle = $('#puzzle')
