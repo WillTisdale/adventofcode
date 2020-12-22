@@ -1,6 +1,48 @@
 $(document).ready(function(){
  "use strict";
 
+ const puzzle1 = $('#puzzle1')
+ const puzzle2 = $('#puzzle2')
+ const pzzStr1 = puzzle1.html()
+ const pzzStr2 = puzzle2.html()
+ let puzzArr1 = pzzStr1.split("\n    ")
+ let puzzArr2 = pzzStr2.split("\n    ")
+ puzzArr1 = puzzArr1.map(n => Number(n))
+ puzzArr2 = puzzArr2.map(n => Number(n))
+ console.log(puzzArr1);
+ console.log(puzzArr2);
+
+ function recursiveCombat(arr1, arr2){
+  if(arr1[0] > arr2[0]){
+   arr1.push(arr1.shift())
+   arr1.push(arr2.shift())
+  } else if(arr2[0] > arr1[0]){
+   arr2.push(arr2.shift())
+   arr2.push(arr1.shift())
+  }
+  if(arr1.length > 0 && arr2.length > 0){
+   recursiveCombat(arr1, arr2)
+  }
+  if(arr1.length === 0){
+   return findScore(arr2)
+  }
+  if(arr2.length === 0){
+   return findScore(arr1)
+  }
+ }
+
+ function findScore(arr){
+  var points = arr.length
+  var total = 0
+  for(var j = 0; j < arr.length; j++){
+   total += arr[j] * points
+   points--
+  }
+  return total
+ }
+
+ console.log(recursiveCombat(puzzArr1, puzzArr2));
+
 //  const puzzle = $('#puzzle1')
 //
 //  const timeStamp = $('#puzzle2')
@@ -62,38 +104,38 @@ $(document).ready(function(){
 //    }
 // }
 
- for(let i = 0; i < 300; i++){
-  let answer = 17 * i;
-  for(let j = 0; j < 300; j++){
-   if(13*j === answer + 2) {
-   for(let k = 0; k < 300; k++){
-     if (19 * k === answer + 3) {
-      console.log(answer);
-                   break;
-     }}}}}
-
-const num = 10000000
-for(let i = 0; i < num; i++){
- let answer = 13 * i;
-  for(let j = 0; j < num; j++){
-   if(41*j === answer + 3){
-   for(let k = 0; k < num; k++){
-    if(569*k === answer + 13){
-    for(let l = 0; l < num; l++){
-     if(29*l === answer + 15){
-     for(let m = 0; m < num; m++){
-      if(19*m === answer + 32){
-      for(let n = 0; n < num; n++){
-       if(23*n === answer + 36){
-       for(let o = 0; o < num; o++){
-        if(937*o === answer + 44){
-        for(let p = 0; p < num; p++){
-         if(37*p === answer + 50){
-         for(let q = 0; q < num; q++){
-          if(17*q === answer + 61){
-           console.log(answer);
-           break;
-          }}}}}}}}}}}}}}}}};
+//  for(let i = 0; i < 300; i++){
+//   let answer = 17 * i;
+//   for(let j = 0; j < 300; j++){
+//    if(13*j === answer + 2) {
+//    for(let k = 0; k < 300; k++){
+//      if (19 * k === answer + 3) {
+//       console.log(answer);
+//                    break;
+//      }}}}}
+//
+// const num = 10000000
+// for(let i = 0; i < num; i++){
+//  let answer = 13 * i;
+//   for(let j = 0; j < num; j++){
+//    if(41*j === answer + 3){
+//    for(let k = 0; k < num; k++){
+//     if(569*k === answer + 13){
+//     for(let l = 0; l < num; l++){
+//      if(29*l === answer + 15){
+//      for(let m = 0; m < num; m++){
+//       if(19*m === answer + 32){
+//       for(let n = 0; n < num; n++){
+//        if(23*n === answer + 36){
+//        for(let o = 0; o < num; o++){
+//         if(937*o === answer + 44){
+//         for(let p = 0; p < num; p++){
+//          if(37*p === answer + 50){
+//          for(let q = 0; q < num; q++){
+//           if(17*q === answer + 61){
+//            console.log(answer);
+//            break;
+//           }}}}}}}}}}}}}}}}};
 
 
 

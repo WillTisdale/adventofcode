@@ -120,7 +120,7 @@ $(document).ready(function(){
         nearbyTickets.forEach(function(ticket){
             for(var m = n; m < o; m++){
                 let newNumber = Number(ticket[m])
-                let index = allInfo.indexOf(allInfo[i])
+
                 if((newNumber >= lowLow && newNumber <= lowHigh) || (newNumber >= highLow && newNumber <= highHigh)){
                     count += 1
                 }
@@ -129,38 +129,42 @@ $(document).ready(function(){
         return count
     }
 
-    // function newFunc(){
-    //     for (var i = 0; i < allInfo.length; i++){
-    //         for(var j = 0; j < allInfo[i].length; j++){
-    //             var lowHigh = undefined
-    //             var lowLow = undefined
-    //             var highHigh = undefined
-    //             var highLow = undefined
-    //             for(var k = 0; k < allInfo[i][j].length; k++){
-    //                 for(var l = 0; l < 1; l++) {
-    //                     if(k === 0){
-    //                         lowHigh = Number(allInfo[i][j][k][l + 1])
-    //                         lowLow = Number(allInfo[i][j][k][l])
-    //                     } else if(k === 1){
-    //                         highHigh = Number(allInfo[i][j][k][l + 1])
-    //                         highLow = Number(allInfo[i][j][k][l])
-    //                     }
-    //                 }
-    //                 if(highLow !== undefined){
-    //                     for(let p = 0; i < 20; p++){
-    //                         if(checkTickets(p, p+1, lowLow, lowHigh, highLow, highHigh) >= 195){
-    //                             console.log(allInfo[i][j] + "could be index " + p)
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    function newFunc(){
+        for (var i = 0; i < allInfo.length; i++){
+            for(var j = 0; j < allInfo[i].length; j++){
+                var lowHigh = undefined
+                var lowLow = undefined
+                var highHigh = undefined
+                var highLow = undefined
+                for(var k = 0; k < allInfo[i][j].length; k++){
+                    for(var l = 0; l < 1; l++) {
+                        if(k === 0){
+                            lowHigh = Number(allInfo[i][j][k][l + 1])
+                            console.log(lowHigh);
+                            lowLow = Number(allInfo[i][j][k][l])
+                            console.log(lowLow);
+                        } else if(k === 1){
+                            highHigh = Number(allInfo[i][j][k][l + 1])
+                            console.log(highHigh);
+                            highLow = Number(allInfo[i][j][k][l])
+                            console.log(highLow);
+                        }
+                    }
+                    if(highLow !== undefined){
+                        for(let p = 0; i < 20; p++){
+                            if(checkTickets(p, p+1, lowLow, lowHigh, highLow, highHigh) >= 195){
+                                // console.log(allInfo[i][j] + " could be index " + p)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-    // newFunc()
+    newFunc()
 
-    // console.log(checkTickets(0, 1, 41, 526, 547, 973));
+    console.log(checkTickets(0, 1, 41, 526, 547, 973));
 
 
     console.log(newTicket);
