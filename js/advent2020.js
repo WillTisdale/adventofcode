@@ -12,22 +12,34 @@ $(document).ready(function(){
  console.log(puzzArr1);
  console.log(puzzArr2);
 
- function recursiveCombat(arr1, arr2){
-  if(arr1[0] > arr2[0]){
-   arr1.push(arr1.shift())
-   arr1.push(arr2.shift())
-  } else if(arr2[0] > arr1[0]){
-   arr2.push(arr2.shift())
-   arr2.push(arr1.shift())
+ function recursiveCombat(arr1, arr2, arr3){
+  if(arr3 === undefined){
+   var arr3 = [];
   }
-  if(arr1.length > 0 && arr2.length > 0){
-   recursiveCombat(arr1, arr2)
+  var nextSet = [arr1, arr2]
+  for(var i = 0; i < arr3.length; i++){
+   if(arr3[i].includes(nextSet)){
+    return "Player 1 wins"
+   }
   }
-  if(arr1.length === 0){
-   return findScore(arr2)
-  }
-  if(arr2.length === 0){
-   return findScore(arr1)
+  arr3.push(nextSet)
+  if(arr1[0] <= arr1.length - 1 && arr2[0] <= arr2.length - 1){
+   if(arr1[0] > arr2[0]){
+    arr1.push(arr1.shift())
+    arr1.push(arr2.shift())
+   } else if(arr2[0] > arr1[0]){
+    arr2.push(arr2.shift())
+    arr2.push(arr1.shift())
+   }
+   if(arr1.length > 0 && arr2.length > 0){
+    recursiveCombat(arr1, arr2, arr3)
+   }
+   if(arr1.length === 0){
+    return findScore(arr2)
+   }
+   if(arr2.length === 0){
+    return findScore(arr1)
+   }
   }
  }
 
