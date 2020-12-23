@@ -1,59 +1,126 @@
 $(document).ready(function(){
  "use strict";
 
- const puzzle1 = $('#puzzle1')
- const puzzle2 = $('#puzzle2')
- const pzzStr1 = puzzle1.html()
- const pzzStr2 = puzzle2.html()
- let puzzArr1 = pzzStr1.split("\n    ")
- let puzzArr2 = pzzStr2.split("\n    ")
- puzzArr1 = puzzArr1.map(n => Number(n))
- puzzArr2 = puzzArr2.map(n => Number(n))
- console.log(puzzArr1);
- console.log(puzzArr2);
+ let puzzle = $('#puzzle')
+ puzzle = puzzle.html()
+ puzzle = puzzle.split("")
+ puzzle = puzzle.map(n => Number(n))
+ console.log(puzzle);
 
- function recursiveCombat(arr1, arr2, arr3){
-  if(arr3 === undefined){
-   var arr3 = [];
+ // function findDestinationCup(arr1, arr2, num, max){
+ //  if(arr2.includes(num)){
+ //   if(num === 1){
+ //    num = max
+ //     findDestinationCup(arr1, arr2, num, max)
+ //    } else if(num > 1){
+ //    findDestinationCup(arr1, arr2, num - 1, max)
+ //   }
+ //  } else {
+ //   console.log(num);
+ //   return num
+ //  }
+ //
+ //  }
+
+function minusOne(arr, num, max){
+ num = num - 1 > 0 ? num - 1 : max
+ if(arr.includes(num)){
+  return num
+ } else {
+   return minusOne(arr, num, max)
+ }
+}
+
+ function recursiveCrabGame(arr, i){
+  if(i > arr.length - 1)
+  const max = Math.max(...arr)
+  const current = arr[i]
+  console.log("Current: " + current);
+  const threeCups = []
+  while(threeCups.length < 3){
+   threeCups.push(Number(arr.splice(arr.indexOf(current) + 1, 1).join("")))
   }
-  var nextSet = [arr1, arr2]
-  for(var i = 0; i < arr3.length; i++){
-   if(arr3[i].includes(nextSet)){
-    return "Player 1 wins"
-   }
-  }
-  arr3.push(nextSet)
-  if(arr1[0] <= arr1.length - 1 && arr2[0] <= arr2.length - 1){
-   if(arr1[0] > arr2[0]){
-    arr1.push(arr1.shift())
-    arr1.push(arr2.shift())
-   } else if(arr2[0] > arr1[0]){
-    arr2.push(arr2.shift())
-    arr2.push(arr1.shift())
-   }
-   if(arr1.length > 0 && arr2.length > 0){
-    recursiveCombat(arr1, arr2, arr3)
-   }
-   if(arr1.length === 0){
-    return findScore(arr2)
-   }
-   if(arr2.length === 0){
-    return findScore(arr1)
-   }
-  }
+  var destination = minusOne(arr, current, max)
+  console.log("Destination: " + destination);
+ if(arr.indexOf(destination) > arr.indexOf(current)){
+  arr.splice(arr.indexOf(destination) + 1, 0 , threeCups[0])
+  arr.splice(arr.indexOf(destination) + 2, 0 , threeCups[1])
+  arr.splice(arr.indexOf(destination) + 3, 0 , threeCups[2])
+ } else {
+  if(arr.indexOf(current) < )
+   arr.push(arr.shift())
+   arr.unshift(threeCups[2])
+   arr.push(threeCups[0])
+   arr.push(threeCups[1])
  }
 
- function findScore(arr){
-  var points = arr.length
-  var total = 0
-  for(var j = 0; j < arr.length; j++){
-   total += arr[j] * points
-   points--
-  }
-  return total
+
+  console.log("Three Cups: " + threeCups);
+  console.log("New starting list: " + arr);
+
  }
 
- console.log(recursiveCombat(puzzArr1, puzzArr2));
+ for(var i = 0; i < 10; i++){
+  recursiveCrabGame(puzzle, i)
+ }
+
+ // //Day 22 Part 1
+
+ // const puzzle1 = $('#puzzle1')
+ // const puzzle2 = $('#puzzle2')
+ // const pzzStr1 = puzzle1.html()
+ // const pzzStr2 = puzzle2.html()
+ // let puzzArr1 = pzzStr1.split("\n    ")
+ // let puzzArr2 = pzzStr2.split("\n    ")
+ // puzzArr1 = puzzArr1.map(n => Number(n))
+ // puzzArr2 = puzzArr2.map(n => Number(n))
+ // console.log(puzzArr1);
+ // console.log(puzzArr2);
+ //
+ // function recursiveCombat(arr1, arr2, arr3){
+ //  if(arr3 === undefined){
+ //   var arr3 = [];
+ //  }
+ //  var nextSet = [arr1, arr2]
+ //  for(var i = 0; i < arr3.length; i++){
+ //   if(arr3[i].includes(nextSet)){
+ //    return "Player 1 wins"
+ //   }
+ //  }
+ //  arr3.push(nextSet)
+ //  if(arr1[0] <= arr1.length - 1 && arr2[0] <= arr2.length - 1){
+ //   if(arr1[0] > arr2[0]){
+ //    arr1.push(arr1.shift())
+ //    arr1.push(arr2.shift())
+ //   } else if(arr2[0] > arr1[0]){
+ //    arr2.push(arr2.shift())
+ //    arr2.push(arr1.shift())
+ //   }
+ //   if(arr1.length > 0 && arr2.length > 0){
+ //    recursiveCombat(arr1, arr2, arr3)
+ //   }
+ //   if(arr1.length === 0){
+ //    return findScore(arr2)
+ //   }
+ //   if(arr2.length === 0){
+ //    return findScore(arr1)
+ //   }
+ //  }
+ // }
+ //
+ // function findScore(arr){
+ //  var points = arr.length
+ //  var total = 0
+ //  for(var j = 0; j < arr.length; j++){
+ //   total += arr[j] * points
+ //   points--
+ //  }
+ //  return total
+ // }
+ //
+ // console.log(recursiveCombat(puzzArr1, puzzArr2));
+ //
+ // //Day 22 Part 1 ^^^
 
 //  const puzzle = $('#puzzle1')
 //
